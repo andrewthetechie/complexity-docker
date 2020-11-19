@@ -1,0 +1,6 @@
+ARG py_ver=3.9
+FROM python:$py_ver-alpine
+
+ARG complexity_version
+
+RUN pip install --no-cache-dir complexity==$complexity_version
