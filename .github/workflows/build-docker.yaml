@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - id: get_version
+        uses: battila7/get-version-action@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -26,10 +28,10 @@ jobs:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity:3.9-alpine-${{ github.event.release.tag_name }}
+          tags: andrewthetechie/complexity:3.9-alpine-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
-            complexity_version=${{ github.event.release.tag_name }}
+            complexity_version=${{ steps.get_version.outputs.version }}
             py_ver=3.8
       - name: Build and push slim 3.8
         id: docker_build_slim_38
@@ -38,10 +40,10 @@ jobs:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity:3.9-slim-${{ github.event.release.tag_name }}
+          tags: andrewthetechie/complexity:3.9-slim-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
-            complexity_version=${{ github.event.release.tag_name }}
+            complexity_version=${{ steps.get_version.outputs.version }}
             py_ver=3.8
       - name: Build and push alpine 3.9
         id: docker_build_alpin39
@@ -50,10 +52,10 @@ jobs:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity:3.9-alpine-${{ github.event.release.tag_name }}
+          tags: andrewthetechie/complexity:3.9-alpine-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
-            complexity_version=${{ github.event.release.tag_name }}
+            complexity_version=${{ steps.get_version.outputs.version }}
       - name: Build and push slim 3.9
         id: docker_build_slim_39
         uses: docker/build-push-action@v2
@@ -61,10 +63,10 @@ jobs:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity:3.9-slim-${{ github.event.release.tag_name }}
+          tags: andrewthetechie/complexity:3.9-slim-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
-            complexity_version=${{ github.event.release.tag_name }}
+            complexity_version=${{ steps.get_version.outputs.version }}
       - name: Image digest alpine 3.8
         run: echo ${{ steps.docker_build_alpine_38.outputs.digest }}
       - name: Image digest slim 3.8
