@@ -1,4 +1,4 @@
-name: build-docker-39
+name: build-docker-310
 on:
   push:
     tags:
@@ -32,7 +32,7 @@ jobs:
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
             complexity_version=${{ steps.get_version.outputs.version }}
-            py_ver=3.10-rc-alpine
+            py_ver=3.10-rc
       - name: Build and push slim 3.10
         id: docker_build_slim_310
         uses: docker/build-push-action@v2
@@ -44,7 +44,7 @@ jobs:
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
             complexity_version=${{ steps.get_version.outputs.version }}
-            py_ver=3.10-rc-slim
+            py_ver=3.10-rc
       - name: Image digest alpine 3.10
         run: echo ${{ steps.docker_build_alpine_310.outputs.digest }}
       - name: Image digest slim 3.10
