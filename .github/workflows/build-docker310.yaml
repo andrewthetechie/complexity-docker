@@ -21,31 +21,31 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push alpine 3.8
-        id: docker_build_alpine_38
+      - name: Build and push alpine 3.10
+        id: docker_build_alpine_310
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity-docker:3.8-alpine-${{ steps.get_version.outputs.version }}
+          tags: andrewthetechie/complexity-docker:3.10-rc-alpine-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
             complexity_version=${{ steps.get_version.outputs.version }}
-            py_ver=3.8
-      - name: Build and push slim 3.8
-        id: docker_build_slim_38
+            py_ver=3.10-rc-alpine
+      - name: Build and push slim 3.10
+        id: docker_build_slim_310
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile-alpine
           push: true
-          tags: andrewthetechie/complexity-docker:3.8-slim-${{ steps.get_version.outputs.version }}
+          tags: andrewthetechie/complexity-docker:3.10-rc-slim-${{ steps.get_version.outputs.version }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           build-args: |
             complexity_version=${{ steps.get_version.outputs.version }}
-            py_ver=3.8
-      - name: Image digest alpine 3.8
-        run: echo ${{ steps.docker_build_alpine_38.outputs.digest }}
-      - name: Image digest slim 3.8
-        run: echo ${{ steps.docker_build_slim_38.outputs.digest }}
+            py_ver=3.10-rc-slim
+      - name: Image digest alpine 3.10
+        run: echo ${{ steps.docker_build_alpine_310.outputs.digest }}
+      - name: Image digest slim 3.10
+        run: echo ${{ steps.docker_build_slim_310.outputs.digest }}
