@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push alpine 3.9
         id: docker_build_alpin39
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile-alpine
@@ -34,7 +34,7 @@ jobs:
             complexity_version=${{ steps.get_version.outputs.version }}
       - name: Build and push slim 3.9
         id: docker_build_slim_39
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile-alpine
